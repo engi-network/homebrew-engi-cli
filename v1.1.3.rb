@@ -10,7 +10,7 @@ class V113 < Formula
   sha256 "8a19b1022064626e28e5685562cfd0756b2a5388dad163d451e180d9782a63b3"
   license ""
 
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "gh"
   depends_on "gnupg"
 
@@ -205,14 +205,15 @@ class V113 < Formula
   end
 
   def install
-      venv = virtualenv_create(libexec)
-      %w[docopt coloredlogs xmltodict lizard substrate-interface sentry-sdk].each do |r|
-        #venv.pip_install resource(r)
-      resource(r).stage do
-        system "python", *Language::Python.setup_install_args(libexec/"vendor")
-      end
-      end
-      venv.pip_install_and_link buildpath
+      virtualenv_install_with_resources
+      #venv = virtualenv_create(libexec)
+      #%w[docopt coloredlogs xmltodict lizard substrate-interface sentry-sdk].each do |r|
+      #  venv.pip_install resource(r)
+      ##resource(r).stage do
+      ##  system "python", *Language::Python.setup_install_args(libexec/"vendor")
+      ##end
+      #end
+      #venv.pip_install_and_link buildpath
   end
 
   test do
