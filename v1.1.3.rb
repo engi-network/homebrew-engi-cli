@@ -207,7 +207,10 @@ class V113 < Formula
   def install
       venv = virtualenv_create(libexec)
       %w[docopt coloredlogs xmltodict lizard substrate-interface sentry-sdk].each do |r|
-        venv.pip_install resource(r)
+        #venv.pip_install resource(r)
+      resource(r).stage do
+        system "python", *Language::Python.setup_install_args(libexec/"vendor")
+      end
       end
       venv.pip_install_and_link buildpath
   end
